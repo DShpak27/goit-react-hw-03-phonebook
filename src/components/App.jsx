@@ -15,10 +15,21 @@ export default class App extends Component {
         ],
         filter: '',
     };
-    // state = {
-    //     contacts: [],
-    //     filter: '',
-    // };
+
+    componentDidMount() {
+        const contacts = JSON.parse(localStorage.getItem('contacts'));
+        if (contacts) {
+            this.setState({ contacts: contacts });
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        const { contacts } = this.state;
+        const { contacts: prevContacts } = prevState;
+        if (JSON.stringify(contacts) !== JSON.stringify(prevContacts)) {
+            localStorage.setItem('contacts', JSON.stringify(contacts));
+        }
+    }
 
     getSubmittedData = data => {
         const { contacts } = this.state;

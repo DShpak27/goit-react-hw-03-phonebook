@@ -34,10 +34,13 @@ export default class App extends Component {
     getSubmittedData = data => {
         const { contacts } = this.state;
 
-        for (let contact of contacts) {
-            if (contact.name.toLowerCase() === data.name.toLowerCase()) {
-                return alert(`${data.name} is already in contacts`);
-            }
+        if (
+            contacts.find(
+                contact =>
+                    contact.name.toLowerCase() === data.name.toLowerCase()
+            )
+        ) {
+            return alert(`${data.name} is already in contacts`);
         }
 
         this.setState(prevState => {
